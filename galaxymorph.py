@@ -1,6 +1,5 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from scipy.optimize import curve_fit
 from astropy.modeling import models, fitting
 from astropy.modeling.models import Sersic1D
 
@@ -28,16 +27,16 @@ class galaxy(object):
 		plt.semilogy()
 		plt.title("Radial profile for {}".format(self.name))
 
-	def galaxy_fit1(self):
+	def galaxy_fit1(self, a = 0.5, r = 1, nm = 4):
 		# Initiate function with initial guess for the parameters
 
-		Sersic_init = Sersic1D(amplitude = 0.5, r_eff = 1, n = 4.0)
+		Sersic_init = Sersic1D(amplitude = a, r_eff = r, n = nm)
 
 		# Fitting function
 		fit = fitting.LevMarLSQFitter()
 
 		# Perform the fit (note that uncertainties are also considered)
-		best_Sersic = fit(Sersic_init, self.radius, self.SB, weights = 1/self.SB_err, maxiter = 5000)
+		best_Sersic = fit(Sersic_init, self.radius, self.SB, weights = 1/self.SB_err, maxiter = 500000)
 
 		print("")
 		print(best_Sersic)
@@ -57,11 +56,11 @@ class galaxy(object):
 		ax[0].semilogy()
 
 		ax[1].scatter(self.radius, (self.SB - best_Sersic(self.radius))/self.SB, color = 'deepskyblue')
-		ax[1].set_xlabel('Radius (Mpc)')
+		ax[1].set_xlabel('Radius (kpc)')
 		ax[1].set_ylabel('Residuals')
 		#ax[1].semilogy()
 
-	def galaxy_fit2(self):
+	def galaxy_fit2(self, a1 = 0.17, r1 = 2.6, n1 = 1, a2 = 0.1, r2 = 3.4, n2 = 4.2):
 	    # Filtrar los datos para eliminar NaN o inf en radius, SB o SB_err
 	    mask = np.isfinite(self.radius) & np.isfinite(self.SB) & np.isfinite(self.SB_err)
 	    
@@ -71,8 +70,8 @@ class galaxy(object):
 	    SB_err_filtered = self.SB_err[mask]
 
 	    # Iniciar las funciones de Sérsic con suposiciones iniciales para los parámetros
-	    Sersic1_init = Sersic1D(amplitude=0.1722277258438259, r_eff=2.6, n=1)  # Primer componente Sérsic
-	    Sersic2_init = Sersic1D(amplitude=0.11100932153044392, r_eff=3.4, n=4.20255893376516)  # Segundo componente Sérsic
+	    Sersic1_init = Sersic1D(amplitude=a1, r_eff=r1, n=n1)  # Primer componente Sérsic
+	    Sersic2_init = Sersic1D(amplitude=a2, r_eff=r2, n=n2)  # Segundo componente Sérsic
 
 	    # Suma de dos funciones de Sérsic
 	    Sersic_total_init = Sersic1_init + Sersic2_init
@@ -105,7 +104,7 @@ class galaxy(object):
 	    # Graficar los datos observacionales con barras de error
 	    ax[0].errorbar(radius_filtered, SB_filtered, yerr=SB_err_filtered, fmt='o', label='Data', color='deepskyblue', markersize=4, capsize=3)
 
-	    ax[0].set_xlabel('Radius (Mpc)')
+	    ax[0].set_xlabel('Radius (kpc)')
 	    ax[0].set_ylabel('Surface Brightness [counts/arcsec^2]')
 	    ax[0].legend()
 	    ax[0].semilogy()

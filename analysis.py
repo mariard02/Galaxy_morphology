@@ -28,4 +28,4 @@ m81 = galaxy("M81", 3.6, file)
 m81.galaxy_info()
 m81.galaxy_fit2()
 
-#plt.show()
+plt.show()
