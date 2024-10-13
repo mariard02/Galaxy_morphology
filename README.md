@@ -17,6 +17,12 @@ This project provides a Python class `galaxy` for analyzing the radial surface b
 - Matplotlib
 - Astropy
 
+This can be installed by typing 
+
+```
+pip install requirements.txt
+```
+
 ## Data Format
 
 The input data for each galaxy should be stored in a text file containing three columns:
