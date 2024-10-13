@@ -1,6 +1,6 @@
 # Galaxy Surface Brightness Profile Fitting
 
-This project provides a Python class `galaxy` for analyzing the radial surface brightness profile of galaxies. It fits Sersic models to observational data, offering tools for both single-component and two-component Sersic profile fitting, with visualization and error handling.
+This project provides a Python class `galaxy` for analyzing the radial surface brightness profile of galaxies. It fits Sersic models to observational data, offering tools for both single-component and two-component Sersic profile fitting, with visualization and error handling. It was created for the practical exercises of the subject "Galaxies and Cosmology: an introduction", taught at the University of Geneva.
 
 ## Features
 
