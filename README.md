@@ -32,10 +32,12 @@ The input data for each galaxy should be stored in a text file containing three 
 - Surface Brightness Error (SB_err): Error in the surface brightness measurement.
 - Each file should have no headers and should be formatted as follows:
 
+```
 arcsecond SB SB_err
 0.10      21.2    0.3
 0.15      20.8    0.2
 ...
+```
 
 ## Usage
 
